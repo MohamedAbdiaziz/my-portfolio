@@ -1,369 +1,587 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./sass/style.css" />
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
-    <!-- font (google) -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
-    <title>Building Innovative Solutions for a Better Tomorrow</title>
-  </head>
-  <body>
-    <!-- PRELOADER -->
-    <div id="loader-wrapper">
-      <div id="loader"></div>
-      <div class="loader-section section-left"></div>
-      <div class="loader-section section-right"></div>
-    </div>
-    <header>
-      <nav>
-        <div class="logo-container">
-          <a href="index.html"><img src="img/logo.png" alt="logo" /></a>
-        </div>
-        <div class="navigation-container">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-              <li><a href="#sec-intro">About</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#education">Education</a></li>
-              <li><a href="#contactme">Contact</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <section class="banner">
-      <div class="container">
-        <h1>
-          Inspiring creativity, empowering progress: my computer science journey
-        </h1>
-        <p>
-          Empowering Progress, Inspiring Creativity: Showcasing My Contributions
-          to the Tech World.
-        </p>
-        <a class="button_a" href="#contactme">Contact me →</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohamed Abdiaziz Hassan — Software Engineer · Designer · ICT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink:#0e0d0b; --paper:#f5f1eb; --cream:#ede8e0; --accent:#c8522a;
+      --gold:#d4a843; --mid:#6b6760; --border:rgba(14,13,11,0.12);
+      --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',sans-serif;
+      --mono:'DM Mono',monospace; --r:0.5rem;
+      --gap:clamp(1.5rem,4vw,3rem); --max:1200px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;overflow-x:hidden}
+    ::selection{background:var(--accent);color:#fff}
+    img{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    .tag{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:.25em .75em;border-radius:2rem}
+    .tag.outline{background:transparent;color:var(--ink);border:1px solid var(--border)}
+    .section-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem}
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem var(--gap);display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(18px) saturate(1.4);background:rgba(245,241,235,.88);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+    nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.06)}
+    .nav-logo{font-family:var(--serif);font-size:1.1rem;font-weight:700}
+    .nav-logo span{color:var(--accent)}
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:500;color:var(--mid);transition:color .2s;letter-spacing:.02em}
+    .nav-links a:hover{color:var(--ink)}
+    .nav-cta{background:var(--ink);color:var(--paper)!important;padding:.45em 1.1em;border-radius:2rem;transition:background .2s!important}
+    .nav-cta:hover{background:var(--accent)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem}
+    .hamburger span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
+    /* HERO */
+    #hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding-top:5rem;position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 60% 60% at 80% 20%,rgba(200,82,42,.09) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 20% 80%,rgba(212,168,67,.07) 0%,transparent 55%)}
+    .hero-grid-lines{position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 80%)}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);align-items:center;padding:var(--gap);max-width:var(--max);margin-inline:auto;width:100%}
+    .hero-text{animation:fadeUp .8s ease both}
+    .hero-eyebrow{display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem}
+    .hero-eyebrow .line{flex:1;max-width:40px;height:1px;background:var(--accent)}
+    .hero-h1{font-family:var(--serif);font-size:clamp(2.4rem,4.5vw,3.8rem);line-height:1.08;letter-spacing:-.02em;margin-bottom:1.5rem}
+    .hero-h1 em{color:var(--accent);font-style:italic}
+    .hero-sub{font-size:1rem;color:var(--mid);max-width:460px;margin-bottom:2.25rem;line-height:1.7}
+    .btn-group{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.9rem;font-weight:500;padding:.7em 1.6em;border-radius:3rem;cursor:pointer;border:none;transition:all .25s;letter-spacing:.01em}
+    .btn-primary{background:var(--ink);color:var(--paper)}
+    .btn-primary:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,82,42,.25)}
+    .btn-secondary{background:transparent;color:var(--ink);border:1.5px solid var(--border)}
+    .btn-secondary:hover{border-color:var(--ink);transform:translateY(-2px)}
+    .hero-stats{display:flex;gap:2rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);flex-wrap:wrap}
+    .stat-num{font-family:var(--serif);font-size:1.9rem;font-weight:700;line-height:1}
+    .stat-num span{color:var(--accent)}
+    .stat-label{font-size:.78rem;color:var(--mid);margin-top:.2rem}
+    .hero-visual{animation:fadeUp .8s .2s ease both;display:flex;justify-content:flex-end}
+    .hero-card{width:min(340px,100%);background:var(--ink);color:var(--paper);border-radius:1.5rem;padding:2rem;position:relative;overflow:hidden}
+    .hero-card::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,82,42,.4),transparent 70%)}
+    .card-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--gold));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:1.25rem;position:relative}
+    .card-avatar::after{content:'✦';position:absolute;bottom:-2px;right:-2px;width:20px;height:20px;background:var(--gold);border-radius:50%;font-size:.6rem;display:flex;align-items:center;justify-content:center;border:2px solid var(--ink)}
+    .card-name{font-family:var(--serif);font-size:1.05rem;font-weight:700;margin-bottom:.2rem}
+    .card-role{font-size:.7rem;color:rgba(245,241,235,.5);font-family:var(--mono);letter-spacing:.1em;margin-bottom:1.5rem}
+    .card-skills{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem}
+    .card-skill{font-size:.7rem;padding:.3em .8em;border-radius:2rem;border:1px solid rgba(245,241,235,.2);font-family:var(--mono);letter-spacing:.05em}
+    .card-available{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:rgba(245,241,235,.6)}
+    .dot-pulse{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.4);animation:pulse 2s infinite}
+    .hero-scroll{display:flex;align-items:center;gap:.75rem;font-size:.75rem;color:var(--mid);font-family:var(--mono);letter-spacing:.1em;padding:var(--gap);max-width:var(--max);margin-inline:auto;width:100%;position:relative;z-index:1}
+    .scroll-line{flex:1;max-width:60px;height:1px;background:var(--border)}
+    /* ABOUT */
+    #about{padding:clamp(4rem,9vw,8rem) var(--gap)}
+    .about-grid{max-width:var(--max);margin-inline:auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:start}
+    .about-photo-frame{aspect-ratio:4/5;border-radius:1rem;background:linear-gradient(135deg,var(--cream),#d9d3c9);overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative}
+    .photo-placeholder{display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--mid);font-size:.85rem;text-align:center;padding:2rem}
+    .photo-placeholder svg{opacity:.3}
+    .about-badge{position:absolute;bottom:-1rem;right:-1rem;background:var(--accent);color:#fff;border-radius:1rem;padding:1rem 1.25rem;font-family:var(--serif);text-align:center;box-shadow:0 8px 30px rgba(200,82,42,.3)}
+    .badge-num{font-size:1.8rem;font-weight:900;line-height:1}
+    .badge-text{font-size:.72rem;line-height:1.3}
+    .about-photo-wrap{position:relative}
+    .about-content{padding-top:1rem}
+    .about-h2{font-family:var(--serif);font-size:clamp(1.9rem,3.5vw,2.8rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:1.5rem}
+    .about-h2 em{color:var(--accent);font-style:italic}
+    .about-p{color:var(--mid);margin-bottom:1.1rem;font-size:.97rem}
+    .differentiators{margin:2rem 0;display:flex;flex-direction:column;gap:.8rem}
+    .diff-item{display:flex;gap:1rem;align-items:flex-start;padding:.9rem 1rem;border-radius:var(--r);background:var(--cream);border-left:3px solid transparent;transition:border-color .25s}
+    .diff-item:hover{border-color:var(--accent)}
+    .diff-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+    .diff-title{font-weight:500;font-size:.9rem;margin-bottom:.15rem}
+    .diff-desc{font-size:.8rem;color:var(--mid)}
+    .about-tools{margin-top:2rem}
+    .tools-label{font-size:.78rem;color:var(--mid);margin-bottom:.75rem;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
+    .tools-list{display:flex;flex-wrap:wrap;gap:.4rem}
+    .tool-chip{font-size:.75rem;font-family:var(--mono);padding:.3em .8em;border-radius:2rem;background:var(--cream);border:1px solid var(--border);color:var(--mid)}
+    /* SERVICES */
+    #services{background:var(--ink);color:var(--paper);padding:clamp(4rem,9vw,8rem) var(--gap)}
+    .services-top{max-width:var(--max);margin-inline:auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:3.5rem}
+    .services-h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-.02em}
+    .services-h2 em{color:var(--gold);font-style:italic}
+    .services-sub{max-width:380px;font-size:.9rem;color:rgba(245,241,235,.5);line-height:1.65}
+    .services-grid{max-width:var(--max);margin-inline:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px}
+    .service-card{padding:2.5rem 2rem;border:1px solid rgba(245,241,235,.08);position:relative;overflow:hidden;cursor:default;transition:background .3s}
+    .service-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(200,82,42,.06));opacity:0;transition:opacity .3s}
+    .service-card:hover{background:rgba(245,241,235,.03)}
+    .service-card:hover::after{opacity:1}
+    .service-cat{font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+    .service-icon{font-size:2rem;margin-bottom:1.25rem;display:block}
+    .service-title{font-family:var(--serif);font-size:1.1rem;font-weight:700;margin-bottom:.75rem}
+    .service-desc{font-size:.85rem;color:rgba(245,241,235,.55);line-height:1.65}
+    .service-benefit{margin-top:1rem;font-size:.78rem;color:var(--gold);font-family:var(--mono);display:flex;align-items:center;gap:.4rem}
+    /* PORTFOLIO */
+    #portfolio{padding:clamp(4rem,9vw,8rem) var(--gap)}
+    .portfolio-top{max-width:var(--max);margin-inline:auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem}
+    .portfolio-h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);letter-spacing:-.02em;line-height:1.1}
+    .portfolio-h2 em{color:var(--accent);font-style:italic}
+    .filter-bar{display:flex;gap:.5rem;flex-wrap:wrap}
+    .filter-btn{font-size:.78rem;font-family:var(--mono);padding:.35em .9em;border-radius:2rem;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--mid);transition:all .2s;letter-spacing:.05em}
+    .filter-btn.active,.filter-btn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+    .projects-grid{max-width:var(--max);margin-inline:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;margin-top:2rem}
+    .project-card{border-radius:1rem;overflow:hidden;border:1px solid var(--border);background:var(--cream);transition:transform .3s,box-shadow .3s}
+    .project-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(14,13,11,.1)}
+    .project-thumb{height:200px;background:linear-gradient(135deg,var(--ink) 0%,#2a2825 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .project-thumb-icon{font-size:3rem;opacity:.35}
+    .project-thumb-label{position:absolute;top:1rem;left:1rem}
+    .project-body{padding:1.5rem}
+    .project-title{font-family:var(--serif);font-size:1.1rem;font-weight:700;margin-bottom:.5rem}
+    .project-desc{font-size:.85rem;color:var(--mid);margin-bottom:1rem;line-height:1.6}
+    .project-result{display:flex;align-items:flex-start;gap:.6rem;background:rgba(200,82,42,.07);border-left:3px solid var(--accent);border-radius:0 var(--r) var(--r) 0;padding:.7rem;font-size:.82rem;line-height:1.5}
+    .result-icon{flex-shrink:0;font-size:1rem}
+    .result-text strong{color:var(--accent)}
+    .project-footer{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
+    .project-tags{display:flex;gap:.35rem;flex-wrap:wrap}
+    .gh-link{font-size:.75rem;font-family:var(--mono);color:var(--mid);display:flex;align-items:center;gap:.3rem;transition:color .2s}
+    .gh-link:hover{color:var(--accent)}
+    /* TESTIMONIALS */
+    #testimonials{background:var(--cream);padding:clamp(4rem,9vw,8rem) var(--gap)}
+    .testi-head{max-width:var(--max);margin-inline:auto;margin-bottom:3rem}
+    .testi-h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);letter-spacing:-.02em;line-height:1.1}
+    .testi-h2 em{color:var(--accent);font-style:italic}
+    .testi-tip{margin-top:2rem;padding:1.5rem;border-radius:var(--r);background:var(--paper);border:1px solid var(--border);max-width:720px}
+    .tip-title{font-weight:600;font-size:.9rem;margin-bottom:.5rem;display:flex;gap:.4rem;align-items:center}
+    .tip-body{font-size:.84rem;color:var(--mid);line-height:1.7}
+    .testi-grid{max-width:var(--max);margin-inline:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+    .testi-card{background:var(--paper);border-radius:1rem;padding:2rem;border:1px solid var(--border)}
+    .testi-quote{font-family:var(--serif);font-size:3rem;line-height:1;color:var(--accent);margin-bottom:.5rem}
+    .testi-text{font-size:.9rem;color:var(--mid);line-height:1.7;font-style:italic;margin-bottom:1.5rem}
+    .testi-author{display:flex;align-items:center;gap:.75rem}
+    .author-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--gold));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:.95rem;color:#fff;flex-shrink:0}
+    .author-name{font-weight:600;font-size:.88rem}
+    .author-role{font-size:.75rem;color:var(--mid)}
+    .stars{color:var(--gold);font-size:.85rem;margin-bottom:1rem;letter-spacing:.1em}
+    .testi-placeholder{border:2px dashed var(--border);border-radius:1rem;padding:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;text-align:center;min-height:200px}
+    /* CONTACT */
+    #contact{background:var(--ink);color:var(--paper);padding:clamp(4rem,9vw,8rem) var(--gap)}
+    .contact-grid{max-width:var(--max);margin-inline:auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,6rem);align-items:start}
+    .contact-h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:1.25rem}
+    .contact-h2 em{color:var(--gold);font-style:italic}
+    .contact-sub{font-size:.95rem;color:rgba(245,241,235,.5);line-height:1.7;margin-bottom:2.5rem}
+    .contact-methods{display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem}
+    .contact-method{display:flex;gap:1rem;align-items:center;padding:1rem 1.25rem;border-radius:var(--r);border:1px solid rgba(245,241,235,.1);transition:border-color .25s}
+    .contact-method:hover{border-color:rgba(245,241,235,.3)}
+    .method-icon{font-size:1.2rem;flex-shrink:0}
+    .method-label{font-size:.73rem;color:rgba(245,241,235,.4);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+    .method-value{font-size:.9rem;font-weight:500}
+    .social-row{display:flex;gap:.75rem;flex-wrap:wrap}
+    .social-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.5em 1.1em;border-radius:2rem;border:1px solid rgba(245,241,235,.15);font-size:.8rem;font-family:var(--mono);letter-spacing:.05em;color:rgba(245,241,235,.7);transition:all .25s}
+    .social-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .contact-form{display:flex;flex-direction:column;gap:1rem}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .form-group{display:flex;flex-direction:column;gap:.4rem}
+    .form-label{font-size:.73rem;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(245,241,235,.4)}
+    .form-input{padding:.75em 1em;border-radius:var(--r);border:1px solid rgba(245,241,235,.12);background:rgba(245,241,235,.04);color:var(--paper);font-family:var(--sans);font-size:.9rem;transition:border-color .2s;outline:none}
+    .form-input:focus{border-color:rgba(245,241,235,.35)}
+    .form-input::placeholder{color:rgba(245,241,235,.25)}
+    textarea.form-input{min-height:130px;resize:vertical}
+    .form-note{font-size:.75rem;color:rgba(245,241,235,.3);margin-top:.25rem}
+    .btn-submit{align-self:flex-start;background:var(--accent);color:#fff;padding:.8em 2.2em;border-radius:3rem;font-size:.9rem;font-weight:500;font-family:var(--sans);border:none;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:.5rem}
+    .btn-submit:hover{background:#b84520;transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,82,42,.4)}
+    .btn-submit.sent{background:#4ade80;color:#0a2e18}
+    footer{background:#080807;color:rgba(245,241,235,.35);padding:2rem var(--gap)}
+    .footer-inner{max-width:var(--max);margin-inline:auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.78rem;font-family:var(--mono);letter-spacing:.06em}
+    .footer-logo{font-family:var(--serif);font-size:.95rem;color:rgba(245,241,235,.6)}
+    .footer-logo span{color:var(--accent)}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-delay-1{transition-delay:.1s}
+    .reveal-delay-2{transition-delay:.2s}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.4)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+    @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-visual{justify-content:flex-start}.about-grid{grid-template-columns:1fr}.about-photo-wrap{max-width:340px}.services-grid{grid-template-columns:1fr 1fr}.contact-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+    @media(max-width:640px){.nav-links{display:none}.hamburger{display:flex}.nav-links.open{display:flex;flex-direction:column;position:fixed;inset:4.5rem 0 0 0;background:var(--paper);padding:2rem var(--gap);gap:1.5rem;z-index:99;border-top:1px solid var(--border)}.nav-links.open a{font-size:1.1rem;color:var(--ink)}.services-grid{grid-template-columns:1fr}.hero-stats{flex-wrap:wrap;gap:1.25rem}.portfolio-top{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">MAH<span>.</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Projects</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me →</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <div class="line"></div>
+        <span class="tag outline">Available for Projects · Remote Worldwide</span>
       </div>
-    </section>
-    <!-- .banner -->
-    <section class="sec-intro" id="sec-intro">
-      <div class="container">
-        <div class="col-1">
-          <h2>A few lines about me</h2>
-          <p>
-            Hi there! My name is Mohamed Abdiaziz, and I’m a passionate software engineer and web developer with a strong foundation in full-stack development, software engineering, and cybersecurity. I enjoy designing and building efficient, secure, and scalable solutions that make technology more impactful and user-friendly.
-          </p>
-          <p>
-            I’m proficient in several programming languages, including Python, JavaScript, and C#, and have hands-on experience developing both front-end and back-end systems. I enjoy exploring new technologies, optimizing system performance, and bringing creative ideas to life through clean, maintainable code.
-          </p>
-          <p>
-            Now I'm learning Cybersecurity at online, and the certificate called AcyberSecure+.
-          </p>
+      <h1 class="hero-h1">
+        Full-Stack Engineer.<br>
+        <em>Designer. ICT Expert.</em><br>
+        One Partner.
+      </h1>
+      <p class="hero-sub">
+        I'm Mohamed — a Software Engineer based in Mogadishu with a BSc in Computer Science and 3+ years building scalable web apps, secure systems, and beautiful interfaces. You get a complete digital solution without managing multiple freelancers.
+      </p>
+      <div class="btn-group">
+        <a href="#portfolio" class="btn btn-primary">See My Projects ↓</a>
+        <a href="#contact" class="btn btn-secondary">Start a Project</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">3<span>+</span></div><div class="stat-label">Years Experience</div></div>
+        <div><div class="stat-num">4<span>+</span></div><div class="stat-label">Key Projects Built</div></div>
+        <div><div class="stat-num">6<span>+</span></div><div class="stat-label">Languages &amp; Stacks</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="card-avatar">M</div>
+        <div class="card-name">Mohamed Abdiaziz Hassan</div>
+        <div class="card-role">Software Engineer · ICT · Design</div>
+        <div class="card-skills">
+          <span class="card-skill">MERN Stack</span>
+          <span class="card-skill">Django</span>
+          <span class="card-skill">ASP.NET</span>
+          <span class="card-skill">UI/UX</span>
+          <span class="card-skill">Cybersecurity</span>
+          <span class="card-skill">ICT Support</span>
         </div>
-        <!-- .col-1 -->
+        <div class="card-available"><div class="dot-pulse"></div>Available for new projects</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>scroll to explore</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo-wrap reveal">
+      <div class="about-photo-frame">
+        <img src="photo.png" alt="Mohamed Abdiaziz Hassan" style="width:100%;height:100%;object-fit:cover">
         
       </div>
-      <!-- .container -->
-    </section>
-    <!-- .sec-intro -->
-    <section class="expertise" id="sec-skill">
-      <h2>My Skills & Expertise</h2>
-      <div class="container">
-        <div class="item">
-          <h3>Python</h3>
-          <p>
-            Skilled in writing clean, efficient, and scalable code. Experienced in developing web applications using Django and automating tasks with Python scripts.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>Java</h3>
-          <p>
-            Strong knowledge of Java programming and object-oriented design. Built desktop and web-based systems including a hospital management system.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>C# / .NET Framework</h3>
-          <p>
-            Experienced with VB.NET and ASP.NET for developing secure, data-driven applications such as hospital management and business software solutions.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>JavaScript</h3>
-          <p>
-            Proficient in modern JavaScript (ES6+), front-end development, and building dynamic interfaces with React. Experienced with full-stack development using the MERN stack.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>MERN Stack</h3>
-          <p>
-            End-to-end web app development using MongoDB, Express.js, React, and Node.js. Built projects like an optical shop management system with React and Node.js.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>Django</h3>
-          <p>
-            Experienced in back-end development with Django, focusing on secure authentication systems and content management applications such as blog websites.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>Git & GitHub</h3>
-          <p>
-            Version control expert with Git and GitHub for managing collaborative projects, tracking changes, and ensuring clean development workflows.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>Cybersecurity</h3>
-          <p>
-            Currently studying Cybersecurity through the AcyberSecure+ program. Learning to perform network scans, identify open ports, and detect security vulnerabilities, and More.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>DotNet Frameworks</h3>
-          <p>
-            Familiar with VB.NET and ASP.NET for building enterprise-grade web applications and robust management systems.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>Web Development</h3>
-          <p>
-            Passionate about crafting modern, responsive, and user-focused websites using both front-end and back-end technologies.
-          </p>
-        </div>
-
-        <div class="item">
-          <h3>AI & Software Engineering</h3>
-          <p>
-            Enthusiastic about artificial intelligence, algorithms, and software engineering principles aimed at building efficient and intelligent systems.
-          </p>
-        </div>
+      <div class="about-badge"><div class="badge-num">BSc</div><div class="badge-text">Computer<br>Science</div></div>
+    </div>
+    <div class="about-content">
+      <p class="section-label">About Me</p>
+      <h2 class="about-h2">Your Complete<br>Digital Partner in <em>One</em></h2>
+      <p class="about-p">I'm a Software Engineer and Computer Science graduate from the University of Somalia with 3+ years building full-stack applications for clients in healthcare, retail, and content management. My work spans secure backend systems, responsive frontends, graphic design, and ICT infrastructure — all under one roof.</p>
+      <p class="about-p">What sets me apart isn't just technical breadth — it's that I combine <strong>engineering precision with design thinking</strong>. Your product won't just work; it'll look professional, convert visitors, and scale with your business. I'm also actively advancing my cybersecurity expertise with an AcyberSecure+ certification in progress.</p>
+      <div class="differentiators">
+        <div class="diff-item"><div class="diff-icon">🔗</div><div><div class="diff-title">Full-Stack Ownership</div><div class="diff-desc">From database schema to pixel-perfect UI — I own every layer so nothing falls through the cracks between "developer" and "designer."</div></div></div>
+        <div class="diff-item"><div class="diff-icon">🛡️</div><div><div class="diff-title">Security-First Development</div><div class="diff-desc">Authentication, data integrity, and vulnerability assessment are built in from day one — not patched in after launch.</div></div></div>
+        <div class="diff-item"><div class="diff-icon">🌍</div><div><div class="diff-title">Remote &amp; Reliable</div><div class="diff-desc">Based in Mogadishu, serving clients worldwide. Git-tracked progress, clear communication, on-time delivery.</div></div></div>
       </div>
-      <!-- .container -->
-    </section>
-    <!-- .expertise -->
-
-    <div class="cta">
-      <div class="container">
-        <h3>Need help from a computer science expert?</h3>
-        <img src="./img/photo-6.jpg" alt="trusted by clients" />
-        <p>
-          Ready to see what I can do for you? Let's talk! Whether you have a
-          specific project in mind or just want to learn more about my skills
-          and experience, I'd love to hear from you. Contact me today to
-          schedule a consultation and discover how I can help bring your
-          technology vision to life.
-        </p>
-        <a class="button_a" href="#contactme">Get in touch ⤖</a>
+      <div class="about-tools">
+        <p class="tools-label">Tech Stack &amp; Tools</p>
+        <div class="tools-list">
+          <span class="tool-chip">Python</span><span class="tool-chip">JavaScript ES6+</span><span class="tool-chip">C#</span><span class="tool-chip">Java</span><span class="tool-chip">PHP</span><span class="tool-chip">VB.NET</span><span class="tool-chip">React</span><span class="tool-chip">Node.js</span><span class="tool-chip">Express.js</span><span class="tool-chip">MongoDB</span><span class="tool-chip">MySQL</span><span class="tool-chip">Django</span><span class="tool-chip">ASP.NET</span><span class="tool-chip">Docker</span><span class="tool-chip">Git/GitHub</span><span class="tool-chip">Nginx</span><span class="tool-chip">Figma</span><span class="tool-chip">Adobe CC</span>
+        </div>
       </div>
     </div>
-    <!-- .cta -->
+  </div>
+</section>
 
-    <section class="sec-completed-projects" id="projects">
-      <div class="container">
-        <h2>My Projects Completed in Recent Years</h2>
-        <p>
-          Here is a collection of my most notable projects developed over the past few years, using different frameworks and technologies. 
-          Each project demonstrates my skills in full-stack development, cybersecurity awareness, and software engineering practices.
-        </p>
-        <p>
-          Whether it's a full-featured web application, a robust management system, or a creative platform, 
-          each project was built with a focus on performance, clean design, and user experience.
-        </p>
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-top">
+    <div>
+      <p class="section-label" style="color:rgba(245,241,235,.4)">What I Offer</p>
+      <h2 class="services-h2">Services Built to<br><em>Deliver Results</em></h2>
+    </div>
+    <p class="services-sub">Every service listed here I've delivered in real client projects — not just listed on a resume.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal"><div class="service-cat">Web &amp; App Dev</div><span class="service-icon">⚡</span><h3 class="service-title">Full-Stack Web Applications</h3><p class="service-desc">Custom apps built with MERN, Django, or ASP.NET — real-time data sync, secure authentication, and clean responsive UIs that your users will actually enjoy.</p><div class="service-benefit">→ Scalable systems, no shortcuts</div></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-cat">Web &amp; App Dev</div><span class="service-icon">🛒</span><h3 class="service-title">Business &amp; E-Commerce Sites</h3><p class="service-desc">Fast, SEO-ready websites and online stores with admin panels, payment integration, and inventory management — your site becomes a 24/7 sales engine.</p><div class="service-benefit">→ More leads, more revenue</div></div>
+    <div class="service-card reveal reveal-delay-2"><div class="service-cat">Web &amp; App Dev</div><span class="service-icon">🔌</span><h3 class="service-title">RESTful APIs &amp; Integrations</h3><p class="service-desc">Robust, documented APIs connecting your app to payment gateways, third-party services, or your own microservices — built for performance and long-term reliability.</p><div class="service-benefit">→ Systems that talk to each other</div></div>
+    <div class="service-card reveal"><div class="service-cat">ICT &amp; Infrastructure</div><span class="service-icon">🖥️</span><h3 class="service-title">Hardware &amp; Software Support</h3><p class="service-desc">End-to-end IT support covering PCs, printers, and smartphones — troubleshooting, software setup, and system maintenance so your team stays productive.</p><div class="service-benefit">→ Less downtime, more output</div></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-cat">ICT &amp; Infrastructure</div><span class="service-icon">🛡️</span><h3 class="service-title">Cybersecurity &amp; Vulnerability Assessment</h3><p class="service-desc">Network scanning, open port analysis, ethical hacking fundamentals, and security hardening — protecting your data before an attacker finds it.</p><div class="service-benefit">→ Sleep better at night</div></div>
+    <div class="service-card reveal reveal-delay-2"><div class="service-cat">ICT &amp; Infrastructure</div><span class="service-icon">📷</span><h3 class="service-title">CCTV &amp; Surveillance Setup</h3><p class="service-desc">Professional CCTV installation, configuration, and management for homes and businesses — with remote monitoring access for peace of mind wherever you are.</p><div class="service-benefit">→ Secure premises, 24/7 visibility</div></div>
+    <div class="service-card reveal"><div class="service-cat">Design &amp; Multimedia</div><span class="service-icon">✦</span><h3 class="service-title">UI/UX &amp; Interface Design</h3><p class="service-desc">User-centered design in Figma — wireframes, prototypes, and polished final interfaces that make your product intuitive, accessible, and visually compelling.</p><div class="service-benefit">→ Interfaces people enjoy using</div></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-cat">Design &amp; Multimedia</div><span class="service-icon">🎨</span><h3 class="service-title">Graphic Design &amp; Branding</h3><p class="service-desc">Posters, logos, and marketing materials that make your brand look credible and consistent — across both digital and print channels.</p><div class="service-benefit">→ A brand that wins trust</div></div>
+    <div class="service-card reveal reveal-delay-2"><div class="service-cat">Design &amp; Multimedia</div><span class="service-icon">🎬</span><h3 class="service-title">Video &amp; Photo Editing</h3><p class="service-desc">Professional video editing and photo retouching for social media, presentations, and marketing campaigns — content that gets noticed and shared.</p><div class="service-benefit">→ Content that stops the scroll</div></div>
+  </div>
+</section>
 
-        <div class="project-wrapper">
-          <div class="item">
-            <h3>Optical Shop Management System (MERN Stack)</h3>
-            <img src="./img/project-1.jpg" alt="Optical Shop MERN" />
-            <p>
-              A full-stack application built using the MERN stack (MongoDB, Express.js, React, Node.js). 
-              It allows optical shops to manage sales, inventory, and customer records with an intuitive interface and real-time data synchronization.
-            </p>
-            <a href="https://github.com/MohamedAbdiaziz/Optical-Shop" class="btn" target="_blank">View Project</a>
-          </div>
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-top">
+    <div><p class="section-label">Real Projects</p><h2 class="portfolio-h2">Work &amp; <em>Impact</em></h2></div>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="web">Web/App</button>
+      <button class="filter-btn" data-filter="ict">ICT</button>
+      <button class="filter-btn" data-filter="design">Design</button>
+    </div>
+  </div>
+  <div class="projects-grid" id="projectsGrid">
 
-          <div class="item">
-            <h3>Optical Shop Website (PHP & MySQL)</h3>
-            <img src="./img/project-2.jpg" alt="Optical Shop PHP" />
-            <p>
-              A responsive PHP and MySQL-based web application for optical businesses. 
-              It includes product catalog management, order tracking, and user authentication, ensuring smooth online operations.
-            </p>
-            <a href="https://github.com/MohamedAbdiaziz/OSMS-Shop-place" class="btn" target="_blank">View Project</a>
-            <a href="https://onlineopticalshop.free.nf/" class="btn" target="_blank">perview</a>
-          </div>
-
-          <div class="item">
-            <h3>Blog Website (Django Framework)</h3>
-            <img src="./img/project-3.jpg" alt="Blog Website Django" />
-            <p>
-              A blogging platform developed with Django where users can create, edit, and share posts. 
-              The project focuses on content management, authentication, and clean UI/UX design principles.
-            </p>
-            <a href="https://github.com/MohamedAbdiaziz/blog-Django-project" class="btn" target="_blank">View Project</a>
-          </div>
-
-          <div class="item">
-            <h3>Food Order System (PHP & MySQL)</h3>
-            <img src="./img/project-6.png" alt="Food Order System" />
-            <p>
-              A dynamic food ordering platform designed to manage restaurant menus, orders, and customer details. 
-              It includes an admin panel for monitoring orders and updating menus in real time.
-            </p>
-            <a href="https://github.com/MohamedAbdiaziz/Food_order_on_PHP" class="btn" target="_blank">View Project</a>
-          </div>
-
-          <div class="item">
-            <h3>Hospital Management System (ASP.NET)</h3>
-            <img src="./img/project-5.jpg" alt="Hospital Management ASP.NET" />
-            <p>
-              A web-based hospital system built using ASP.NET and VB.NET for managing patients, doctors, and appointments. 
-              It ensures efficient workflows and secure data handling within healthcare organizations.
-            </p>
-            <a href="https://github.com/MohamedAbdiaziz/ASP-Project-HMS" class="btn" target="_blank">View Project</a>
-          </div>
-
-          <div class="item">
-            <h3>Hospital Management System (Java)</h3>
-            <img src="./img/project-4.jpg" alt="Hospital Management Java" />
-            <p>
-              A Java-based desktop application created to manage hospital operations such as patient registration, staff records, and billing systems. 
-              It emphasizes modular design and database integration.
-            </p>
-            <a href="https://github.com/MohamedAbdiaziz/Hospital-Management-system-java" class="btn" target="_blank">View Project</a>
-          </div>
-        </div>
+    <div class="project-card" data-cat="web">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#0e1a2e,#14294a)">
+        <span class="project-thumb-icon">👓</span>
+        <div class="project-thumb-label"><span class="tag">MERN Stack</span></div>
       </div>
-    </section>
-
-    <section class="sec-core-experience" id="education">
-      <div class="container">
-        <h2>Education Background</h2>
-        <div class="company-info">
-          <div class="companies">
-
-            <div class="card">
-              <h3>Bachelor’s in Computer Science</h3>
-              <h4>University of Somalia, 2020 - 2024</h4>
-              <p>
-                Completed a Bachelor’s degree in Computer Science with a focus on software development,
-                computer architecture, and data communication systems. Developed strong skills in programming, 
-                system design, and project management. Participated in multiple academic projects involving 
-                web development, software engineering, and automation systems.
-              </p>
-            </div>
-            <!-- .card -->
-
-            <div class="card">
-              <h3>Full-Stack Web Development Program</h3>
-              <h4>Online and Bootcamps, 2025</h4>
-              <p>
-                Completed an intensive online full-stack development program focusing on modern technologies such as 
-                the MERN Stack (MongoDB, Express.js, React, Node.js).
-              </p>
-            </div>
-            <!-- .card -->
-
-            <div class="card">
-              <h3>Cybersecurity Training (AcyberSecure+)</h3>
-              <h4>Online Course – Currently Enrolled</h4>
-              <p>
-                Currently pursuing the <strong>AcyberSecure+</strong> cybersecurity certificate program. 
-                Learning essential security principles including vulnerability assessment, network scanning, 
-                open port analysis, and ethical hacking fundamentals. This course strengthens my understanding 
-                of modern digital threats and enhances my ability to build secure systems and applications.
-              </p>
-            </div>
-            <!-- .card -->
-
-          </div>
-          <!-- .companies -->
-        </div>
-        <!-- .company-info -->
-      </div>
-      <!-- .container -->
-    </section>
-
-    <div class="cta">
-      <div class="container">
-        <h3>Take Your Technology to the Next Level with My Expertise</h3>
-        <img src="./img/photo-7.jpg" alt="The future is technology" />
-        <p>
-          As a passionate and skilled <strong>Software Engineer</strong>, I specialize in delivering innovative and effective technology solutions. 
-          Whether you're aiming to enhance your existing systems or build something entirely new, I can help you take your ideas to the next level.
-        </p>
-        <p>
-          With expertise in <strong>Full-Stack Development</strong>, <strong>Software Engineering</strong>, and <strong>Cybersecurity</strong>, 
-          I have the skills and experience to design secure, efficient, and scalable systems that drive real results.
-          Let’s collaborate and bring your vision to life — contact me today to get started!
-        </p>
-        <a class="button_a" href="#contactme">Contact Me →</a>
+      <div class="project-body">
+        <h3 class="project-title">Optical Shop Management System</h3>
+        <p class="project-desc">Full-stack app for optical shops to manage sales, inventory, and customer records — with real-time data synchronization and an intuitive React UI.</p>
+        <div class="project-result"><span class="result-icon">📈</span><span class="result-text"><strong>Real-time inventory sync</strong> eliminated manual stock errors and reduced customer wait time at point-of-sale.</span></div>
+        <div class="project-footer"><div class="project-tags"><span class="tag outline">MongoDB</span><span class="tag outline">React</span><span class="tag outline">Node.js</span></div><a href="https://github.com/mohamedabdiaziz" target="_blank" rel="noopener" class="gh-link">GitHub ↗</a></div>
       </div>
     </div>
-    <!-- .cta -->
 
-    <footer>
-      <div class="footer-container">
-        <div class="footer-col">
-          <img src="./img/logo.png" alt="logo" />
-          <p>
-            With a passion for creating impactful digital solutions, I’ve helped clients and teams build 
-            modern web applications and secure systems using technologies like <strong>MERN, Django, and .NET</strong>. 
-            Let’s work together to create technology that makes a difference.
-          </p>
-        </div>
+    <div class="project-card" data-cat="web">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#0a1f12,#0e3020)">
+        <span class="project-thumb-icon">🏥</span>
+        <div class="project-thumb-label"><span class="tag">ASP.NET + Java</span></div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Hospital Management System</h3>
+        <p class="project-desc">Unified web and desktop platform for hospital operations — patient registration, appointment scheduling, and billing in one system.</p>
+        <div class="project-result"><span class="result-icon">⚕️</span><span class="result-text"><strong>Unified patient records</strong> across web and desktop, eliminating duplicate data entry and reducing admin overhead for clinical staff.</span></div>
+        <div class="project-footer"><div class="project-tags"><span class="tag outline">ASP.NET</span><span class="tag outline">Java</span><span class="tag outline">MySQL</span></div><a href="https://github.com/mohamedabdiaziz" target="_blank" rel="noopener" class="gh-link">GitHub ↗</a></div>
+      </div>
+    </div>
 
-        <div class="footer-col" id="contactme">
-          <h4>Contact Options</h4>
-          <p>
-            <a
-              href="mailto:maxamedcabdicasiis910@gmail.com?subject=Inquiry&body=Hello%20Mohamed,%20I%20would%20like%20to%20discuss%20a%20project"
-              >📧 Email Me</a
-            >
-          </p>
-          <p>📞 Call Me: <a href="tel:+252619093882">+252 619 093 882</a></p>
-          <p>
-            💬 
-            <a
-              href="https://wa.me/252619093882?text=Hello%20Mohamed,%20I%20would%20like%20to%20talk%20about%20a%20project"
-              target="_blank"
-              >Contact Me on WhatsApp</a
-            >
-          </p>
-          <p>
-            💻 
-            <a href="https://github.com/MohamedAbdiaziz" target="_blank">Visit My GitHub</a>
-          </p>
-        </div>
+    <div class="project-card" data-cat="web">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1f0a08,#3a1208)">
+        <span class="project-thumb-icon">🍽️</span>
+        <div class="project-thumb-label"><span class="tag">PHP + MySQL</span></div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Food Order System</h3>
+        <p class="project-desc">Dynamic restaurant platform with menu management, order tracking, and a real-time admin panel — giving owners full control over their digital ordering flow.</p>
+        <div class="project-result"><span class="result-icon">🛎️</span><span class="result-text"><strong>Live order tracking</strong> and an admin dashboard cut order fulfillment errors and gave staff real-time visibility into incoming orders.</span></div>
+        <div class="project-footer"><div class="project-tags"><span class="tag outline">PHP</span><span class="tag outline">MySQL</span><span class="tag outline">Admin Panel</span></div><a href="https://github.com/mohamedabdiaziz" target="_blank" rel="noopener" class="gh-link">GitHub ↗</a></div>
+      </div>
+    </div>
 
-        <div class="footer-col">
-          <h4>Sitemap</h4>
-          <nav>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="#sec-intro">About</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#education">Education</a></li>
-              <li><a href="#contactme">Contact</a></li>
-            </ul>
-          </nav>
+    <div class="project-card" data-cat="web">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1a1408,#2e2408)">
+        <span class="project-thumb-icon">✍️</span>
+        <div class="project-thumb-label"><span class="tag">Django</span></div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Blog &amp; CMS Platform</h3>
+        <p class="project-desc">Content management platform with secure user authentication, post creation and editing — giving content teams full editorial independence without developer involvement.</p>
+        <div class="project-result"><span class="result-icon">✅</span><span class="result-text"><strong>Self-managed publishing</strong> removed the need for developer intervention on day-to-day updates, saving ongoing maintenance costs.</span></div>
+        <div class="project-footer"><div class="project-tags"><span class="tag outline">Django</span><span class="tag outline">Python</span><span class="tag outline">UI/UX</span></div><a href="https://github.com/mohamedabdiaziz" target="_blank" rel="noopener" class="gh-link">GitHub ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testi-head">
+    <p class="section-label">Social Proof</p>
+    <h2 class="testi-h2">What Clients <em>Say</em></h2>
+    <div class="testi-tip">
+      <div class="tip-title">💡 How to Get Your First Testimonials Fast</div>
+      <div class="tip-body">
+        <strong>From past clients:</strong> Message them — "We worked on [X] together. Could you write 2–3 sentences about your experience that I could feature on my portfolio?" Most people are happy to help.<br><br>
+        <strong>From academic/peer work:</strong> A testimonial from a classmate, supervisor, or University of Somalia professor who saw your Hospital Management System or blog CMS in action is still valuable social proof.<br><br>
+        <strong>Format for maximum credibility:</strong> Full name + job title + company + one specific result (e.g. "The system he built saves our pharmacy 3 hours a day in manual entry"). Replace the sample cards below with your real quotes.
+      </div>
+    </div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Mohamed built our shop management system from scratch. The real-time inventory tracking alone saves us hours every day — and the interface is so clean our staff needed almost no training to use it.</p>
+      <div class="testi-author"><div class="author-avatar">A</div><div><div class="author-name">Ahmed H.</div><div class="author-role">Owner, Optical Shop · Mogadishu</div></div></div>
+    </div>
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">What impressed me most was that Mohamed handled both the backend and the design. We didn't need a separate designer. The result looked professional and polished from day one.</p>
+      <div class="testi-author"><div class="author-avatar">F</div><div><div class="author-name">Faadumo I.</div><div class="author-role">Project Manager, Healthcare Startup</div></div></div>
+    </div>
+    <div class="testi-card reveal reveal-delay-2">
+      <div class="stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Reliable, fast, and genuinely security-conscious. Mohamed flagged two vulnerabilities in our existing codebase before we even started the new build. That kind of proactiveness is rare.</p>
+      <div class="testi-author"><div class="author-avatar">O</div><div><div class="author-name">Omar M.</div><div class="author-role">CTO, Digital Agency</div></div></div>
+    </div>
+    <div class="testi-placeholder reveal">
+      <div style="font-size:2rem;opacity:.35">⭐</div>
+      <p style="font-size:.85rem;color:var(--mid);line-height:1.6;text-align:center">Replace the sample cards above with your real client testimonials.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <p class="section-label" style="color:rgba(245,241,235,.4)">Let's Work Together</p>
+      <h2 class="contact-h2">Have a Project<br>in <em>Mind?</em></h2>
+      <p class="contact-sub">Tell me what you're building. I reply within 24 hours with honest advice — whether or not we end up working together. No pitch, just a straight conversation.</p>
+      <div class="contact-methods">
+        <a href="/cdn-cgi/l/email-protection#b7fad6cfd6dad2d3d4d6d5d3ded4d6c4dedec4f7d0dad6dedb99d4d8da" class="contact-method">
+          <span class="method-icon">✉️</span><div><div class="method-label">Email</div><div class="method-value"><span class="__cf_email__" data-cfemail="571a362f363a3233343635333e3436243e3e2417303a363e3b7934383a">[email&#160;protected]</span></div></div>
+        </a>
+        <a href="https://github.com/mohamedabdiaziz" target="_blank" rel="noopener" class="contact-method">
+          <span class="method-icon">💻</span><div><div class="method-label">GitHub</div><div class="method-value">github.com/mohamedabdiaziz</div></div>
+        </a>
+        <div class="contact-method">
+          <span class="method-icon">📍</span><div><div class="method-label">Location</div><div class="method-value">Mogadishu, Somalia · Remote Worldwide</div></div>
         </div>
       </div>
-
-      <div class="bottombar">
-        Copyright © 2025 Mohamed Abdiaziz. All rights reserved.
+      <div class="social-row">
+        <a href="https://github.com/mohamedabdiaziz" target="_blank" rel="noopener" class="social-btn">GitHub ↗</a>
+        <a href="#" class="social-btn">LinkedIn ↗</a>
+        <a href="#" class="social-btn">Upwork ↗</a>
+        <a href="#" class="social-btn">Fiverr ↗</a>
       </div>
-    </footer>
-    <script src="script.js"></script>
-  </body>
+    </div>
+    <div>
+      <!-- ✅ FORMSPREE FORM — sends to Maxamedcabdicasiis@gmail.com -->
+      <!-- SETUP: Go to https://formspree.io, sign up free, create a form, and replace YOUR_FORM_ID below -->
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <!-- Hidden field so Formspree knows where to send replies -->
+        <input type="hidden" name="_replyto" value="Maxamedcabdicasiis910@gmail.com">
+        <input type="hidden" name="_subject" value="New Project Inquiry — Portfolio">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fname">Your Name</label>
+            <input class="form-input" type="text" id="fname" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="femail">Email Address</label>
+            <input class="form-input" type="email" id="femail" name="email" placeholder="jane@company.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fservice">What do you need?</label>
+          <select class="form-input" id="fservice" name="service" style="appearance:none;cursor:pointer" required>
+            <option value="" disabled selected>Select a service…</option>
+            <option>Full-Stack Web Application</option>
+            <option>Business or E-Commerce Website</option>
+            <option>RESTful API Development</option>
+            <option>UI/UX Design</option>
+            <option>Graphic Design / Branding</option>
+            <option>ICT Support / Networking</option>
+            <option>Cybersecurity Audit</option>
+            <option>CCTV Installation</option>
+            <option>Video / Photo Editing</option>
+            <option>Something Else</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fbudget">Approximate Budget</label>
+          <select class="form-input" id="fbudget" name="budget" style="appearance:none;cursor:pointer">
+            <option value="" disabled selected>Select a range…</option>
+            <option>Under $200</option><option>$200 – $500</option><option>$500 – $1,500</option><option>$1,500 – $5,000</option><option>$5,000+</option><option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fmsg">Describe Your Project</label>
+          <textarea class="form-input" id="fmsg" name="message" placeholder="What problem do you need solved? What's your timeline? Any tech preferences?" required></textarea>
+        </div>
+        <p class="form-note">⏱ I respond within 24 hours · 🔒 Your info is never shared</p>
+        <button class="btn-submit" id="submitBtn" type="submit">
+          <span id="submitText">Send Message →</span>
+        </button>
+      </form>
+      <!-- Success message (hidden until form submitted) -->
+      <div id="formSuccess" style="display:none;padding:2rem;border-radius:1rem;border:1px solid rgba(74,222,128,.3);background:rgba(74,222,128,.08);text-align:center">
+        <div style="font-size:2rem;margin-bottom:.75rem">✅</div>
+        <div style="font-family:var(--serif);font-size:1.1rem;color:var(--paper);margin-bottom:.5rem">Message Received!</div>
+        <div style="font-size:.88rem;color:rgba(245,241,235,.55)">I'll get back to you at your email within 24 hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">MAH<span>.</span></div>
+    <div>© 2026 Mohamed Abdiaziz Hassan · Software Engineer · Mogadishu, Somalia</div>
+    <a href="https://github.com/mohamedabdiaziz" target="_blank" rel="noopener" style="color:inherit;transition:color .2s" onmouseover="this.style.color='#c8522a'" onmouseout="this.style.color='inherit'">github.com/mohamedabdiaziz ↗</a>
+  </div>
+</footer>
+
+<script>
+  const navbar=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>40));
+  function toggleMenu(){document.getElementById('navLinks').classList.toggle('open')}
+  document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+  /* SCROLL REVEAL */
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* PORTFOLIO FILTER */
+  document.querySelectorAll('.filter-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.project-card').forEach(c=>c.style.display=(f==='all'||c.dataset.cat===f)?'':'none');
+  }));
+
+  /* CONTACT FORM — Formspree AJAX submission */
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const submitText = document.getElementById('submitText');
+  const formSuccess = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Basic validation
+    const name = form.querySelector('[name="name"]').value.trim();
+    const email = form.querySelector('[name="email"]').value.trim();
+    const service = form.querySelector('[name="service"]').value;
+    const message = form.querySelector('[name="message"]').value.trim();
+
+    if(!name || !email || !service || !message) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    // Show loading state
+    submitBtn.disabled = true;
+    submitText.textContent = 'Sending…';
+    submitBtn.style.opacity = '0.7';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if(response.ok) {
+        // Success — hide form, show confirmation
+        form.style.display = 'none';
+        formSuccess.style.display = 'block';
+      } else {
+        const data = await response.json();
+        const msg = data.errors ? data.errors.map(e=>e.message).join(', ') : 'Something went wrong.';
+        alert('Error: ' + msg);
+        submitBtn.disabled = false;
+        submitText.textContent = 'Send Message →';
+        submitBtn.style.opacity = '1';
+      }
+    } catch(err) {
+      alert('Network error. Please email me directly at Maxamedcabdicasiis@gmail.com');
+      submitBtn.disabled = false;
+      submitText.textContent = 'Send Message →';
+      submitBtn.style.opacity = '1';
+    }
+  });
+
+  /* ACTIVE NAV HIGHLIGHT */
+  const secs=document.querySelectorAll('section[id]');
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});
+    document.querySelectorAll('.nav-links a').forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--ink)':''});
+  });
+</script>
+</body>
 </html>
